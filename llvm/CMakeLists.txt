@@ -536,6 +536,7 @@ set(LLVM_ALL_TARGETS
   WebAssembly
   X86
   XCore
+  MyX86
   )
 
 set(LLVM_ALL_EXPERIMENTAL_TARGETS

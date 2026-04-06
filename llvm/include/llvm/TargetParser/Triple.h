@@ -110,7 +110,8 @@ public:
     renderscript32, // 32-bit RenderScript
     renderscript64, // 64-bit RenderScript
     ve,             // NEC SX-Aurora Vector Engine
-    LastArchType = ve
+    MyX86,
+    LastArchType = MyX86
   };
   enum SubArchType {
     NoSubArch,
@@ -1164,6 +1165,8 @@ public:
     return getArch() == Triple::aarch64 &&
            getSubArch() == Triple::AArch64SubArch_arm64e;
   }
+
+  bool isMyX86() const { return getArch() == Triple::MyX86; }
 
   // Tests whether the target is N32.
   bool isABIN32() const {

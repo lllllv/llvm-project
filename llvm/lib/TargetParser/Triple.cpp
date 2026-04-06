@@ -88,6 +88,8 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case x86_64:         return "x86_64";
   case xcore:          return "xcore";
   case xtensa:         return "xtensa";
+  case MyX86:
+    return "myx86";
   }
 
   llvm_unreachable("Invalid ArchType!");
@@ -259,6 +261,8 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
   case dxil:        return "dx";
 
   case xtensa:      return "xtensa";
+  case MyX86:
+    return "myx86";
   }
 }
 
@@ -1028,6 +1032,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::ve:
   case Triple::xcore:
   case Triple::xtensa:
+  case Triple::MyX86:
     return Triple::ELF;
 
   case Triple::mipsel:
@@ -1780,6 +1785,7 @@ unsigned Triple::getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::ve:
   case llvm::Triple::wasm64:
   case llvm::Triple::x86_64:
+  case llvm::Triple::MyX86:
     return 64;
   }
   llvm_unreachable("Invalid architecture value");
@@ -1894,6 +1900,9 @@ Triple Triple::get32BitArchVariant() const {
     break;
   case Triple::wasm64:         T.setArch(Triple::wasm32);  break;
   case Triple::x86_64:         T.setArch(Triple::x86);     break;
+  case Triple::MyX86:
+    T.setArch(Triple::UnknownArch);
+    break;
   }
   return T;
 }
@@ -1944,6 +1953,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::ve:
   case Triple::wasm64:
   case Triple::x86_64:
+  case Triple::MyX86:
     // Already 64-bit.
     break;
 
